@@ -107,7 +107,7 @@ as well as this:
 ```
 > rss_reader ...
 ```
-2) Make sure your second iteration works on a clean machie with python 3.8. (!)
+2) Make sure your second iteration works on a clean machie with python 3.9. (!)
 3) Keep in mind that installed CLI utility should have the same functionality, so do not forget to update dependencies and packages.
 
 
