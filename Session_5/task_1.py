@@ -1,0 +1,7 @@
+fl = open("../data/unsorted_names.txt")
+ls = fl.readlines()
+fl.close()
+nls = sorted(ls)
+fl = open("../data/sorted_names.txt", "w")
+fl.writelines(nls)
+fl.close()
