@@ -20,6 +20,3 @@ class Article:
             elif child.tag == 'pubDate':
                 date = datetime.datetime.strptime(child.text, '%Y-%m-%dT%H:%M:%SZ')
         return Article(title, link, date)
-
-    def __str__(self):
-        return f'\nTitle: {self.title}]\nDate: {self.date}\nLink: {self.link}'
