@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""One-shot command-line RSS reader."""
 import xml
 import xml.etree.ElementTree as ET
 from formatter import ArticleFormatter
@@ -9,7 +10,13 @@ import article
 
 
 def parse_args():
+    """Returns parsed command-line arguments."""
     def check_positive(value):
+        """
+        Verifies that passed value is positive.
+
+        :param str value: Argument to verify
+        """
         try:
             ivalue = int(value)
         except ValueError:
@@ -27,6 +34,14 @@ def parse_args():
 
 
 def print_news(source, logger, limit, formatter):
+    """
+    Fetches news from source and print them out to stdout according limit by means of formatter.
+
+    :param str source: URL to read from
+    :param RootLogger logger: Object to print logs 
+    :param int limit: Limit number of articles to process, if None -> all avaliable
+    :param ArticleFormatter formatter: Output formatter
+    """
     try:
         response = requests.get(source)
         root = ET.fromstring(requests.utils.get_unicode_from_response(response))
