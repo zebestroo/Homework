@@ -38,7 +38,7 @@ def print_news(source, logger, limit, formatter):
     Fetches news from source and print them out to stdout according limit by means of formatter.
 
     :param str source: URL to read from
-    :param RootLogger logger: Object to print logs 
+    :param RootLogger logger: Object to print logs
     :param int limit: Limit number of articles to process, if None -> all avaliable
     :param ArticleFormatter formatter: Output formatter
     """

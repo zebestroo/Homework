@@ -18,8 +18,8 @@ class Article:
     def parse_from_xml(item):
         """
         Returns Article object parsed from item.
-        
-        :param xml item: Contains title, date and link inner fields 
+
+        :param xml item: Contains title, date and link inner fields
         """
         title = None
         date = None
