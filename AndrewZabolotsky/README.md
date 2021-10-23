@@ -12,3 +12,14 @@ Example:
 	}
 ```
 
+## Installation
+
+```bash
+python3 -m pip install --index-url https://test.pypi.org/simple/ rss-reader-by-andrew-zabolotsky
+```
+## Contributing
+### How to run tests
+
+```bash
+python3 -m unittest discover -s tests
+```

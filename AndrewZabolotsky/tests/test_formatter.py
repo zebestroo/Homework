@@ -1,7 +1,7 @@
 import unittest
 import json
-import article
-import formatter
+import rss_reader
+from rss_reader import article, formatter
 import datetime
 
 
@@ -24,7 +24,3 @@ class TestArticleFormatter(unittest.TestCase):
         """Tests item is correctly serialized to console format"""
         form = formatter.ArticleFormatter(False)
         self.assertEqual("\nTitle: Title\nDate: 2021-10-14 21:17:20\nLink: http://link", form.format(self.item))
-
-
-if __name__ == '__main__':
-    unittest.main()
