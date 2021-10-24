@@ -1,27 +1,59 @@
-#!/usr/bin/env python
-"""One-shot command-line RSS reader."""
-import xml
-import xml.etree.ElementTree as ET
+"""Helper functions"""
 import requests
-from .article import Article
+import datetime
+from bs4 import BeautifulSoup
+from html import unescape
 
 
-def print_news(source, logger, limit, formatter):
+class Article:
+    """Data container for parsed article."""
+
+    def __init__(self, title, link, date):
+        """
+        :param str title: Title of the article
+        :param str link: Link of the article
+        :param datetime data: Published date of the article
+        """
+        self.title = title
+        self.link = link
+        self.date = date
+
+
+def print_news(articles, date, limit, formatter):
     """
-    Fetches news from source and print them out to stdout according limit by means of formatter.
+    Print news to stdout according limit by means of formatter.
 
-    :param str source: URL to read from
-    :param RootLogger logger: Object to print logs
+    :param list articles: List of articles to output
+    :param datetime.date date: Date of publishing
     :param int limit: Limit number of articles to process, if None -> all avaliable
     :param ArticleFormatter formatter: Output formatter
     """
-    try:
-        response = requests.get(source)
-        root = ET.fromstring(requests.utils.get_unicode_from_response(response))
-        articles = [Article.parse_from_xml(item) for item in root[0] if item.tag == 'item'][:limit]
-        for pub in articles:
-            print(formatter.format(pub))
-    except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError):
-        logger.fatal(f"not able to connect to {source}")
-    except xml.etree.ElementTree.ParseError:
-        logger.fatal(f"not able to parse {source}, is it RSS?")
+    if date:
+        articles = list(filter(lambda pub: pub.date.date() == date, articles))
+        if not articles:
+            raise Exception(f"No news for specified date: {date}")
+    for pub in articles[:limit]:
+        print(formatter.format(pub))
+
+
+def fetch_articles(source):
+    """
+    Fetches news from source
+
+    :param str source: URL to fetch from
+    """
+
+    def parse_date(date):
+        for fmt in ['%Y-%m-%dT%H:%M:%SZ', '%a, %d %b %Y %H:%M:%S %Z']:
+            try:
+                return datetime.datetime.strptime(date, fmt)
+            except Exception:
+                pass
+        raise Exception(f"Unknown date format {date}")
+
+    response = requests.get(source)
+    soup = BeautifulSoup(response.text, 'xml')
+    articles = []
+    for item in soup.find_all("item"):
+        articles.append(Article(item.title.text, item.link.text, parse_date(item.pubDate.text)))
+    return articles

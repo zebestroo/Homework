@@ -15,7 +15,7 @@ Example:
 ## Installation
 
 ```bash
-python3 -m pip install --index-url https://test.pypi.org/simple/ rss-reader-by-andrew-zabolotsky
+python3 -m pip install --extra-index-url https://test.pypi.org/simple/ rss-reader-by-andrew-zabolotsky
 ```
 ## Contributing
 ### How to run tests
@@ -23,3 +23,11 @@ python3 -m pip install --index-url https://test.pypi.org/simple/ rss-reader-by-a
 ```bash
 python3 -m unittest discover -s tests
 ```
+
+## News caching
+
+If `--date` is passed, then news are always fetched from cache. 
+If `--source` is passed together with `--date`, then news are fetched from cache only for specified source. 
+Fresh news are fetched when only `--source` is passed without `--date`
+
+Under the hood cache is implemented as directory which contins a file per source.
