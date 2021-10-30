@@ -28,11 +28,11 @@ class TestCacheUtils(unittest.TestCase):
 
     def test_list_of_paths(self):
         urls = ["https://news.google.com/rss/", "https://news.yahoo.com/rss/"]
-        paths = [self.cache._source_to_path(url) for url in urls]
+        paths = set([self.cache._source_to_path(url) for url in urls])
         for path in paths:
             file = open(path, "w")
             file.close()
-        self.assertEqual(paths, self.cache._list_of_paths())
+        self.assertEqual(paths, set(self.cache._list_of_paths()))
 
     def test_store(self):
         self.cache.store(self.source, self.data)
