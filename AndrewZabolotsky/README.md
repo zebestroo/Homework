@@ -72,6 +72,29 @@ python3 -m pip install --extra-index-url https://test.pypi.org/simple/ rss-reade
 ```
 
 ## Contributing
+
+```
+$ pip install -r requirements.txt
+$ python -m build 
+$ python -m rss_reader -h
+
+usage: rss_reader [-h] [--source SOURCE] [--to-html PATH] [--to-fb2 PATH] [--version] [--json] [--colorize] [--verbose] [--limit LIMIT] [--date DATE]
+
+Pure Python command-line RSS reader.
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --source SOURCE  RSS URL
+  --to-html PATH   Outputs news to file in HTML format
+  --to-fb2 PATH    Outputs news to file in FB2 format
+  --version        show program's version number and exit
+  --json           Print result as JSON in stdout
+  --colorize       Colorize output
+  --verbose        Outputs verbose status messages
+  --limit LIMIT    Limit news topics if this parameter provided
+  --date DATE      Defines date news for catching
+```
+
 ### How to run tests
 
 ```bash

@@ -5,3 +5,4 @@ yattag
 termcolor
 coloredlogs
 requests_mock
+build
